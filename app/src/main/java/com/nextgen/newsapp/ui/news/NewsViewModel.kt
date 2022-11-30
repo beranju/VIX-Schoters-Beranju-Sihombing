@@ -3,11 +3,10 @@ package com.nextgen.newsapp.ui.news
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.nextgen.newsapp.data.repository.NewsRepository
 
-class NewsViewModel : ViewModel() {
+class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
-    }
-    val text: LiveData<String> = _text
+    fun getCategoryNews(category: String) = repository.getLatestNews(category)
+
 }

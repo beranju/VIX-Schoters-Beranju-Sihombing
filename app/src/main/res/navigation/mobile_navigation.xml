@@ -22,7 +22,11 @@
         android:id="@+id/navigation_news"
         android:name="com.nextgen.newsapp.ui.news.NewsFragment"
         android:label="@string/title_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_navigation_news_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
@@ -49,5 +53,8 @@
         <action
             android:id="@+id/action_detailFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_detailFragment_to_navigation_news"
+            app:destination="@id/navigation_news" />
     </fragment>
 </navigation>

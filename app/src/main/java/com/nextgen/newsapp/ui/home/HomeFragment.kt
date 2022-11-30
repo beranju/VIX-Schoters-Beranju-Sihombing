@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -18,14 +19,17 @@ import com.nextgen.newsapp.databinding.FragmentHomeBinding
 import com.nextgen.newsapp.helper.Async
 import com.nextgen.newsapp.ui.ViewModelFactory
 import com.nextgen.newsapp.ui.adapter.CarouselAdapter
+import com.nextgen.newsapp.ui.adapter.LatestAdapter
+import com.nextgen.newsapp.ui.adapter.SearchAdapter
 import kotlin.math.abs
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var carouselAdapter: CarouselAdapter
     private var dataCarousel = ArrayList<ArticlesItem>()
+    private val dataLatest = ArrayList<ArticlesItem>()
+    private lateinit var mAdapter: LatestAdapter
     private val viewModel by viewModels<HomeViewModel> {
         ViewModelFactory(requireContext())
     }
@@ -40,10 +44,41 @@ class HomeFragment : Fragment() {
             (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         }
 
+        _binding?.rvLatest?.layoutManager = LinearLayoutManager(requireContext())
+        _binding?.rvLatest?.setHasFixedSize(true)
+
         goToSearch()
+        getHeadlineNews()
+        getLatestNews()
 
 
 
+
+
+    }
+
+    private fun getLatestNews() {
+        viewModel.getLatestNews("general").observe(viewLifecycleOwner){result->
+            when(result){
+                is Async.Loading -> loading(true)
+                is Async.Error -> {
+                    loading(false)
+                    Log.e(TAG, "onFailure: ${result.error}")
+                }
+                is Async.Success -> {
+                    loading(false)
+                    result.data.articles?.forEach { data->
+                       dataLatest.add(data!!)
+                    }
+                    mAdapter = LatestAdapter(dataLatest)
+                    _binding?.rvLatest?.adapter = mAdapter
+
+                }
+            }
+        }
+    }
+
+    private fun getHeadlineNews() {
         viewModel.getHeadlineNews().observe(viewLifecycleOwner){result->
             when(result){
                 is Async.Loading -> loading(true)
@@ -68,7 +103,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-
     }
 
     private fun goToSearch() {
@@ -92,14 +126,17 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        return binding.root
     }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    companion object{}
+    companion object{
         private val TAG = "HomeFragment"
+
+    }
+
+
 }

@@ -41,7 +41,7 @@
     <ProgressBar
         android:visibility="gone"
         android:id="@+id/pb_search"
-        style="@style/Widget.Material3.LinearProgressIndicator"
+        style="@style/Widget.AppCompat.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -36,18 +36,18 @@ class DetailFragment : Fragment() {
                 view?.loadUrl("javascript:alert('berita berhasil dimuat')")
             }
         }
-        webView.webChromeClient = object : WebChromeClient(){
-            override fun onJsAlert(
-                view: WebView?,
-                url: String?,
-                message: String?,
-                result: JsResult?
-            ): Boolean {
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-                result?.confirm()
-                return true
-            }
-        }
+//        webView.webChromeClient = object : WebChromeClient(){
+//            override fun onJsAlert(
+//                view: WebView?,
+//                url: String?,
+//                message: String?,
+//                result: JsResult?
+//            ): Boolean {
+//                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+//                result?.confirm()
+//                return true
+//            }
+//        }
         webView.loadUrl(url)
     }
 
