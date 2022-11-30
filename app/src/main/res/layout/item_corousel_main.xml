@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="8dp"
+    app:cardMaxElevation="10dp"
+    app:cardCornerRadius="8dp"
+    app:cardUseCompatPadding="true"
+    android:elevation="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/thumnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <View
+            tools:viewBindingIgnore="true"
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#95BBBBBB"
+            android:maxHeight="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_readmore"
+            app:layout_constraintTop_toTopOf="@id/title_news"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/title_news"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:maxLines="2"
+            android:padding="8dp"
+            android:textColor="#181818"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_readmore"
+            app:layout_constraintEnd_toEndOf="@+id/thumnail"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/thumnail"
+            tools:text="gafkjgaljg alkfgjaklfg algjlfkg kflgjagkla g" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/back_item_corousel"
+            app:layout_constraintBottom_toBottomOf="@+id/source_news"
+            app:layout_constraintEnd_toEndOf="@+id/source_news"
+            app:layout_constraintStart_toStartOf="@+id/source_news"
+            app:layout_constraintTop_toTopOf="@id/source_news" />
+
+        <TextView
+            android:id="@+id/tv_readmore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="read more"
+            android:paddingBottom="4dp"
+            android:paddingHorizontal="4dp"
+            android:drawablePadding="4dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/thumnail"
+            app:layout_constraintEnd_toEndOf="@+id/thumnail"
+            app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24" />
+
+        <TextView
+            android:id="@+id/source_news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="#181818"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="sindonews" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>
