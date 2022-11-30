@@ -9,5 +9,7 @@ class HomeViewModel(private val repository: NewsRepository) : ViewModel() {
 
     fun getHeadlineNews() = repository.getHeadlineNews()
 
+    fun getLatestNews(category: String) = repository.getLatestNews(category)
+
 
 }
