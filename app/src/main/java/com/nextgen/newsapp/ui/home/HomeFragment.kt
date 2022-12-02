@@ -20,6 +20,7 @@ import com.nextgen.newsapp.helper.Async
 import com.nextgen.newsapp.ui.ViewModelFactory
 import com.nextgen.newsapp.ui.adapter.CarouselAdapter
 import com.nextgen.newsapp.ui.adapter.LatestAdapter
+import com.nextgen.newsapp.ui.adapter.LoadingStateAdapter
 import com.nextgen.newsapp.ui.adapter.SearchAdapter
 import kotlin.math.abs
 
@@ -28,7 +29,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private var dataCarousel = ArrayList<ArticlesItem>()
-    private val dataLatest = ArrayList<ArticlesItem>()
     private lateinit var mAdapter: LatestAdapter
     private val viewModel by viewModels<HomeViewModel> {
         ViewModelFactory(requireContext())
@@ -51,30 +51,17 @@ class HomeFragment : Fragment() {
         getHeadlineNews()
         getLatestNews()
 
-
-
-
-
     }
 
     private fun getLatestNews() {
-        viewModel.getLatestNews("general").observe(viewLifecycleOwner){result->
-            when(result){
-                is Async.Loading -> loading(true)
-                is Async.Error -> {
-                    loading(false)
-                    Log.e(TAG, "onFailure: ${result.error}")
-                }
-                is Async.Success -> {
-                    loading(false)
-                    result.data.articles?.forEach { data->
-                       dataLatest.add(data!!)
-                    }
-                    mAdapter = LatestAdapter(dataLatest)
-                    _binding?.rvLatest?.adapter = mAdapter
-
-                }
+        mAdapter = LatestAdapter()
+        _binding?.rvLatest?.adapter = mAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter{
+                mAdapter.retry()
             }
+        )
+        viewModel.news.observe(viewLifecycleOwner){
+            mAdapter.submitData(lifecycle, it)
         }
     }
 

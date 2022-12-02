@@ -2,6 +2,7 @@ package com.nextgen.newsapp.data.remote.api
 
 import com.nextgen.newsapp.BuildConfig
 import com.nextgen.newsapp.BuildConfig.API_KEY
+import com.nextgen.newsapp.data.remote.dto.ArticlesItem
 import com.nextgen.newsapp.data.remote.dto.HeadlineResponse
 import com.nextgen.newsapp.data.remote.dto.SearchResponse
 import com.nextgen.newsapp.data.remote.dto.SourceResponse
@@ -27,7 +28,17 @@ interface ApiService {
 
     @GET("top-headlines")
     @Headers("Authorization: apiKey $API_KEY", "User-Agent: request")
-    suspend fun getLatestNews(@Query("country") country: String, @Query("category") category: String): Response<HeadlineResponse>
+    suspend fun getLatestNews(
+        @Query("country") country: String,
+        @Query("page") page: Int,
+        @Query("pageSize") pageSize: Int
+    ): HeadlineResponse
+
+    @GET("top-headlines")
+    @Headers("Authorization: apiKey $API_KEY", "User-Agent: request")
+    suspend fun getLatestNewsCategory(
+        @Query("country") country: String, @Query("category") category: String
+    ): Response<HeadlineResponse>
 
 
 

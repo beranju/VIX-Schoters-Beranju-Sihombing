@@ -7,6 +7,6 @@ import com.nextgen.newsapp.data.repository.NewsRepository
 
 class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
 
-    fun getCategoryNews(category: String) = repository.getLatestNews(category)
+    fun getCategoryNews(category: String) = repository.getLatestNewsCategory(category)
 
 }

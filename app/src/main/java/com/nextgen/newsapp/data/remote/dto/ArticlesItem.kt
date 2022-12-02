@@ -1,7 +1,14 @@
 package com.nextgen.newsapp.data.remote.dto
 
+import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
+
+@Parcelize
 data class ArticlesItem(
     @field:SerializedName("publishedAt")
     val publishedAt: String? = null,
@@ -16,8 +23,9 @@ data class ArticlesItem(
     val description: String? = null,
 
     @field:SerializedName("source")
-    val source: Source? = null,
+    val source: @RawValue Source? = null,
 
+    @PrimaryKey
     @field:SerializedName("title")
     val title: String? = null,
 
@@ -26,4 +34,4 @@ data class ArticlesItem(
 
     @field:SerializedName("content")
     val content: String? = null
-)
+): Parcelable
