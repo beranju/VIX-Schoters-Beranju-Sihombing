@@ -12,6 +12,8 @@ import com.nextgen.newsapp.R
 import com.nextgen.newsapp.data.remote.dto.ArticlesItem
 import com.nextgen.newsapp.databinding.FragmentNewsDetailBinding
 import com.nextgen.newsapp.helper.showToast
+import com.nextgen.newsapp.util.DateFormatter
+import java.util.*
 
 class NewsDetailFragment : Fragment() {
     private var _binding: FragmentNewsDetailBinding? = null
@@ -53,13 +55,16 @@ class NewsDetailFragment : Fragment() {
     private fun setUpView(articleData: ArticlesItem) {
         _binding?.titleNews?.text = articleData.title
         _binding?.sourceName?.text = articleData.source?.name
-        _binding?.date?.text = articleData.publishedAt
+        _binding?.date?.text = DateFormatter.formatDate(articleData.publishedAt.toString(), TimeZone.getDefault().id)
         _binding?.description?.text = buildString {
             append(articleData.description)
             append("...")
         }
         _binding?.description?.maxLines = 4
-        _binding?.editor?.text = articleData.author
+        _binding?.editor?.text = buildString {
+            append("Author: ")
+            append(articleData.author)
+        }
 
         Glide.with(requireContext())
             .load(articleData.urlToImage)

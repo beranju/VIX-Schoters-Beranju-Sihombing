@@ -14,6 +14,9 @@ import com.nextgen.newsapp.databinding.ItemLatestnewsBinding
 import com.nextgen.newsapp.databinding.ItemSearchBinding
 import com.nextgen.newsapp.ui.detail.DetailFragment
 import com.nextgen.newsapp.ui.detail.NewsDetailFragment
+import com.nextgen.newsapp.util.DateFormatter
+import java.util.Locale
+import java.util.TimeZone
 
 class LatestAdapter(): PagingDataAdapter<ArticlesItem, LatestAdapter.SearchViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
@@ -38,7 +41,7 @@ class LatestAdapter(): PagingDataAdapter<ArticlesItem, LatestAdapter.SearchViewH
         fun bind(data: ArticlesItem) {
             binding.titleNews.text = data.title
             binding.sourceNews.text = data.source!!.name
-            binding.publishAt.text = data.publishedAt
+            binding.publishAt.text = DateFormatter.formatDate(data.publishedAt.toString(), TimeZone.getDefault().id)
             Glide.with(itemView.context)
                 .load(data.urlToImage)
                 .centerCrop()

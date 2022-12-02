@@ -12,7 +12,7 @@ import com.nextgen.newsapp.data.remote.dto.SearchResponse
 import com.nextgen.newsapp.data.remote.dto.SourceResponse
 import com.nextgen.newsapp.helper.Async
 
-const val PAGE_SIZE = 5
+const val PAGE_SIZE = 3
 
 class NewsRepository(
     private val apiService: ApiService
