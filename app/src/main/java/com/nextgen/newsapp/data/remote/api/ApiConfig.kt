@@ -24,5 +24,21 @@ class ApiConfig {
 
             return retrofit.create(ApiService::class.java)
         }
+        fun getUserApiService(): UserApiService{
+
+            val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+
+            val client = OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .build()
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BuildConfig.BASE_URL_GITHUB)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build()
+
+            return retrofit.create(UserApiService::class.java)
+        }
     }
 }

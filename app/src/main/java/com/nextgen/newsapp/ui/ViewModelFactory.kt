@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.nextgen.newsapp.di.Injection
 import com.nextgen.newsapp.ui.home.HomeViewModel
 import com.nextgen.newsapp.ui.news.NewsViewModel
+import com.nextgen.newsapp.ui.profile.ProfileViewModel
 import com.nextgen.newsapp.ui.search.SearchViewModel
 
 @Suppress("UNCHECKED_CAST")
@@ -19,6 +20,9 @@ class ViewModelFactory(private val context: Context): ViewModelProvider.Factory 
         }
         if (modelClass.isAssignableFrom(NewsViewModel::class.java)){
             return NewsViewModel(Injection.provideRepository(context)) as T
+        }
+        if (modelClass.isAssignableFrom(ProfileViewModel::class.java)){
+            return ProfileViewModel(Injection.provideUserRepository(context)) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
