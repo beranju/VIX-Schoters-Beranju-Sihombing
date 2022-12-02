@@ -10,13 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nextgen.newsapp.R
 import com.nextgen.newsapp.data.remote.dto.ArticlesItem
+import com.nextgen.newsapp.databinding.ItemLatestnewsBinding
 import com.nextgen.newsapp.databinding.ItemSearchBinding
 import com.nextgen.newsapp.ui.detail.DetailFragment
 import com.nextgen.newsapp.ui.detail.NewsDetailFragment
 
 class LatestAdapter(): PagingDataAdapter<ArticlesItem, LatestAdapter.SearchViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
-        val binding = ItemSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemLatestnewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SearchViewHolder(binding)
     }
 
@@ -33,10 +34,9 @@ class LatestAdapter(): PagingDataAdapter<ArticlesItem, LatestAdapter.SearchViewH
     }
 
 
-    class SearchViewHolder(val binding: ItemSearchBinding): RecyclerView.ViewHolder(binding.root) {
+    class SearchViewHolder(val binding: ItemLatestnewsBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ArticlesItem) {
             binding.titleNews.text = data.title
-            binding.description.text = data.description
             binding.sourceNews.text = data.source!!.name
             binding.publishAt.text = data.publishedAt
             Glide.with(itemView.context)
