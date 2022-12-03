@@ -37,5 +37,5 @@ data class News (
     val url: String? = null,
 
     @field:ColumnInfo(name = "isSaved")
-    var isSaved: Boolean = false
+    var isSaved: Boolean
     ): Parcelable

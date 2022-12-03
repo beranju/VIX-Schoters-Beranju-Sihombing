@@ -22,4 +22,18 @@ object DateFormatter{
 
         }
     }
+
+    fun today(): String{
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val cal = Calendar.getInstance()
+        return dateFormat.format(cal.time)
+    }
+
+    fun yesterday(): String{
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.DATE, -1)
+        return dateFormat.format(cal.time)
+
+    }
 }

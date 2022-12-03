@@ -22,6 +22,7 @@ abstract class NewsDatabase: RoomDatabase() {
                     NewsDatabase::class.java, "quote_database"
                 )
                     .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
                     .build()
                     .also { INSTANCE = it }
             }

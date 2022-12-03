@@ -69,7 +69,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="editor: Beranju"
+        tools:text="beranju"
         app:layout_constraintEnd_toEndOf="@+id/description"
         app:layout_constraintStart_toStartOf="@+id/description"
         app:layout_constraintTop_toBottomOf="@+id/description" />
@@ -81,20 +81,23 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
-        android:text="Read more"
+        android:text="@string/read_more"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/editor"
         app:layout_constraintStart_toStartOf="@+id/editor" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+    <ImageView
         android:id="@+id/save_news"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="24dp"
+        android:padding="16dp"
+        android:background="@drawable/bg_circle_button"
+        android:src="@drawable/ic_baseline_bookmark_border_24"
         app:layout_constraintBottom_toBottomOf="@+id/thumbnail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/thumbnail"
-        app:srcCompat="@drawable/ic_baseline_bookmark_border_24" />
+        app:layout_constraintTop_toBottomOf="@+id/thumbnail" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/share_news"
@@ -105,7 +108,5 @@
         app:layout_constraintEnd_toStartOf="@id/save_news"
         app:layout_constraintTop_toBottomOf="@+id/thumbnail"
         app:srcCompat="@drawable/ic_baseline_share_24" />
-
-    
 
 </androidx.constraintlayout.widget.ConstraintLayout>

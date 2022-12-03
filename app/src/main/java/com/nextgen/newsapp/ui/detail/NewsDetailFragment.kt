@@ -1,33 +1,64 @@
 package com.nextgen.newsapp.ui.detail
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.content.res.Resources
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
 import com.bumptech.glide.Glide
 import com.nextgen.newsapp.R
-import com.nextgen.newsapp.data.remote.dto.ArticlesItem
+import com.nextgen.newsapp.data.local.database.News
 import com.nextgen.newsapp.databinding.FragmentNewsDetailBinding
+import com.nextgen.newsapp.helper.Async
 import com.nextgen.newsapp.helper.showToast
+import com.nextgen.newsapp.ui.ViewModelFactory
+import com.nextgen.newsapp.ui.adapter.CarouselAdapter
+import com.nextgen.newsapp.ui.home.HomeFragment
 import com.nextgen.newsapp.util.DateFormatter
 import java.util.*
+import kotlin.math.abs
 
 class NewsDetailFragment : Fragment() {
     private var _binding: FragmentNewsDetailBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by viewModels<NewsDetailViewModel> {
+        ViewModelFactory(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val articleData = arguments?.getParcelable<ArticlesItem>(ARTICLE_DATA)
+        val articleData = arguments?.getParcelable<News>(ARTICLE_DATA)!!
 
-        setUpView(articleData!!)
+        _binding?.saveNews?.setOnClickListener {
+            if (articleData.isSaved){
+                viewModel.unSaveNews(articleData)
+                _binding?.saveNews?.setImageResource(R.drawable.ic_baseline_bookmark_border_24)
+                Toast.makeText(requireContext(), "UnSave", Toast.LENGTH_SHORT).show()
+            }else{
+                viewModel.saveNews(articleData)
+                _binding?.saveNews?.setImageResource(R.drawable.ic_baseline_bookmark_24)
+                Toast.makeText(requireContext(), "Saved", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        setUpView(articleData)
         _binding?.btnReadmore?.setOnClickListener {
             goToWebView(articleData.url)
         }
+
 
         _binding?.shareNews?.setOnClickListener {
             try {
@@ -52,9 +83,9 @@ class NewsDetailFragment : Fragment() {
         findNavController().navigate(R.id.action_detailNewsFragment_to_detailFragment, bundle)
     }
 
-    private fun setUpView(articleData: ArticlesItem) {
+    private fun setUpView(articleData: News) {
         _binding?.titleNews?.text = articleData.title
-        _binding?.sourceName?.text = articleData.source?.name
+        _binding?.sourceName?.text = articleData.sourceName
         _binding?.date?.text = DateFormatter.formatDate(articleData.publishedAt.toString(), TimeZone.getDefault().id)
         _binding?.description?.text = buildString {
             append(articleData.description)
@@ -70,6 +101,16 @@ class NewsDetailFragment : Fragment() {
             .load(articleData.urlToImage)
             .centerCrop()
             .into(_binding?.thumbnail!!)
+
+        if (articleData.isSaved){
+            _binding?.saveNews?.setImageResource(R.drawable.ic_baseline_bookmark_24)
+        }else{
+            _binding?.saveNews?.setImageResource(R.drawable.ic_baseline_bookmark_border_24)
+
+        }
+
+
+
     }
 
     override fun onCreateView(

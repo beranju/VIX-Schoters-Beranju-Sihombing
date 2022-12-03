@@ -21,6 +21,16 @@ interface ApiService {
 
     @GET("everything")
     @Headers("Authorization: apiKey $API_KEY", "User-Agent: request")
+    suspend fun getPopularNews(
+        @Query("q") query: String,
+        @Query("from") yesterday: String,
+        @Query("to") today: String,
+        @Query("sortBy") sortBy: String
+    ): Response<HeadlineResponse>
+
+
+    @GET("everything")
+    @Headers("Authorization: apiKey $API_KEY", "User-Agent: request")
     suspend fun getSearchNews(@Query("q") query: String): Response<SearchResponse>
 
 
@@ -31,6 +41,7 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int
     ): LatestResponse
+
 
     @GET("top-headlines")
     @Headers("Authorization: apiKey $API_KEY", "User-Agent: request")
