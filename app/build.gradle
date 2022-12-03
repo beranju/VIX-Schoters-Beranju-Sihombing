@@ -24,6 +24,9 @@ android {
         buildConfigField "String", "API_KEY", '"d7fb30a88c9047efbb9d6f9eb35d478e"'
         buildConfigField "String", "BASE_URL_GITHUB", '"https://api.github.com/"'
         buildConfigField "String", "API_KEY_GITHUB", '"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"'
+
+        //for web view
+        useLibrary 'org.apache.http.legacy'
     }
 
     buildTypes {

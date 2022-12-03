@@ -50,6 +50,13 @@ class NewsRemoteMediator(
 
         try {
             val responseData = apiService.getLatestNews("id", page, state.config.pageSize).articles!!
+            val listNews = ArrayList<News>()
+            responseData.forEach { data->
+                val news = News(
+                    data.title.toString(), data.publishedAt, data.author, data.urlToImage, data.description, data.source!!.name, data.url, false
+                )
+                listNews.add(news)
+            }
 
             val endOfPaginationReached = responseData.isEmpty()
 
@@ -60,11 +67,11 @@ class NewsRemoteMediator(
                 }
                 val prevKey = if (page == 1) null else page - 1
                 val nextKey = if (endOfPaginationReached) null else page + 1
-                val keys = responseData.map {
+                val keys = listNews.map {
                     RemoteKeys(title = it.title, prevKey = prevKey,  nextKey = nextKey)
                 }
                 database.remoteKeysDao().insertAll(keys)
-                database.newsDao().insert(responseData)
+                database.newsDao().insert(listNews)
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         }catch (e: Exception){

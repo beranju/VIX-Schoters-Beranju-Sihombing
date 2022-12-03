@@ -2,19 +2,17 @@ package com.nextgen.newsapp.ui.news
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nextgen.newsapp.data.remote.dto.ArticlesItem
 import com.nextgen.newsapp.databinding.FragmentLatesBinding
 import com.nextgen.newsapp.helper.Async
 import com.nextgen.newsapp.ui.ViewModelFactory
-import com.nextgen.newsapp.ui.adapter.LatestAdapter
 import com.nextgen.newsapp.ui.adapter.NewsAdapter
-import com.nextgen.newsapp.ui.home.HomeFragment
 
 
 class LatestFragment : Fragment() {

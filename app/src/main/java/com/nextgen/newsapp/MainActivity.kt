@@ -1,23 +1,13 @@
 package com.nextgen.newsapp
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.fragment.app.commit
 import androidx.navigation.NavDestination
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.nextgen.newsapp.databinding.ActivityMainBinding
-import com.nextgen.newsapp.ui.home.HomeFragment
-import com.nextgen.newsapp.ui.news.SaveNewsFragment
 
 class MainActivity : AppCompatActivity() {
 

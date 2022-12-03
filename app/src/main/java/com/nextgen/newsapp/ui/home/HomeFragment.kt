@@ -21,10 +21,6 @@ import com.nextgen.newsapp.ui.ViewModelFactory
 import com.nextgen.newsapp.ui.adapter.CarouselAdapter
 import com.nextgen.newsapp.ui.adapter.LatestAdapter
 import com.nextgen.newsapp.ui.adapter.LoadingStateAdapter
-import com.nextgen.newsapp.ui.adapter.SearchAdapter
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.util.Calendar
 import kotlin.math.abs
 
 class HomeFragment : Fragment() {

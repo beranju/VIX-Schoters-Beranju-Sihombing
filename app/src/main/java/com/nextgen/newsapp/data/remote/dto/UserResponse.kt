@@ -1,6 +1,9 @@
 package com.nextgen.newsapp.data.remote.dto
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+
 
 data class UserResponse(
     @field:SerializedName("login")

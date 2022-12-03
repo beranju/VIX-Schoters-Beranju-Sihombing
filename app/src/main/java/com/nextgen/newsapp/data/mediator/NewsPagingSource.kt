@@ -17,19 +17,19 @@ class NewsPagingSource(private val apiService: ApiService): PagingSource<Int, Ne
         return try {
             val position = params.key ?: INITIAL_PAGE_INDEX
             val responseData = apiService.getLatestNews("id", INITIAL_PAGE_INDEX, params.loadSize).articles!!
-//            val listNews = ArrayList<News>()
-//            responseData.forEach { data->
-//                val news = News(
-//                    data.title.toString(), data.publishedAt, data.author, data.url, data.description, data.source!!.name, data.url, false
-//                )
-//                listNews.add(news)
-//            }
+            val listNews = ArrayList<News>()
+            responseData.forEach { data->
+                val news = News(
+                    data.title.toString(), data.publishedAt, data.author, data.urlToImage, data.description, data.source!!.name, data.url, false
+                )
+                listNews.add(news)
+            }
 
 
             LoadResult.Page(
-                data = responseData ,
+                data = listNews ,
                 prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
-                nextKey = if (responseData.isNullOrEmpty()) null else position + 1
+                nextKey = if (listNews.isNullOrEmpty()) null else position + 1
             )
         }catch (e: Exception){
             return LoadResult.Error(e)

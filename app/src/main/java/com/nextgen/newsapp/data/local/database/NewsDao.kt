@@ -9,16 +9,17 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.nextgen.newsapp.data.remote.dto.UserResponse
 
 @Dao
 interface NewsDao {
     @Query("SELECT * FROM news")
     fun getNews(): PagingSource<Int, News>
 
-    @Query("SELECT * FROm news WHERE isSaved = 1")
+    @Query("SELECT * FROM news WHERE isSaved = 1")
     fun getSavedNews(): LiveData<List<News>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(news: List<News>)
 
     @Update

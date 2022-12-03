@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.nextgen.newsapp.data.remote.dto.UserResponse
 
-@Database(entities = [News::class, RemoteKeys::class], version = 4, exportSchema = false)
+@Database(entities = [News::class, RemoteKeys::class], version = 6, exportSchema = false)
 abstract class NewsDatabase: RoomDatabase() {
     abstract fun newsDao(): NewsDao
     abstract fun remoteKeysDao(): RemoteKeysDao

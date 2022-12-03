@@ -126,7 +126,6 @@ class NewsRepository(
                 withContext(Dispatchers.IO){
                     news.isSaved = isSaved
                     newsDao.update(news)
-
                 }
             }
         }

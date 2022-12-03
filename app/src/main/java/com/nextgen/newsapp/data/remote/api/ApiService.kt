@@ -40,7 +40,7 @@ interface ApiService {
         @Query("country") country: String,
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int
-    ): LatestResponse
+    ): HeadlineResponse
 
 
     @GET("top-headlines")

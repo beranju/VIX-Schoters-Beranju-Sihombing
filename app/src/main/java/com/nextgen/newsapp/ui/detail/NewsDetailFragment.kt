@@ -1,34 +1,22 @@
 package com.nextgen.newsapp.ui.detail
 
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.content.res.Resources
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
 import com.bumptech.glide.Glide
 import com.nextgen.newsapp.R
 import com.nextgen.newsapp.data.local.database.News
 import com.nextgen.newsapp.databinding.FragmentNewsDetailBinding
-import com.nextgen.newsapp.helper.Async
 import com.nextgen.newsapp.helper.showToast
 import com.nextgen.newsapp.ui.ViewModelFactory
-import com.nextgen.newsapp.ui.adapter.CarouselAdapter
-import com.nextgen.newsapp.ui.home.HomeFragment
 import com.nextgen.newsapp.util.DateFormatter
 import java.util.*
-import kotlin.math.abs
 
 class NewsDetailFragment : Fragment() {
     private var _binding: FragmentNewsDetailBinding? = null
@@ -74,7 +62,6 @@ class NewsDetailFragment : Fragment() {
             }
         }
 
-
     }
 
     private fun goToWebView(url: String?) {
@@ -108,8 +95,6 @@ class NewsDetailFragment : Fragment() {
             _binding?.saveNews?.setImageResource(R.drawable.ic_baseline_bookmark_border_24)
 
         }
-
-
 
     }
 

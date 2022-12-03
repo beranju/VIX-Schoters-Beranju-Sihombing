@@ -2,6 +2,7 @@ package com.nextgen.newsapp.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import com.nextgen.newsapp.data.local.database.UserDao
 import com.nextgen.newsapp.data.remote.api.UserApiService
 import com.nextgen.newsapp.data.remote.dto.UserResponse
 import com.nextgen.newsapp.helper.Async
