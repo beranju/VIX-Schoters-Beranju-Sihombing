@@ -20,7 +20,7 @@ import com.nextgen.newsapp.helper.Async
 import com.nextgen.newsapp.ui.ViewModelFactory
 import com.nextgen.newsapp.ui.adapter.CarouselAdapter
 import com.nextgen.newsapp.ui.adapter.LatestAdapter
-import com.nextgen.newsapp.ui.adapter.SearchAdapter
+import com.nextgen.newsapp.ui.adapter.LoadingStateAdapter
 import kotlin.math.abs
 
 class HomeFragment : Fragment() {
@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private var dataCarousel = ArrayList<ArticlesItem>()
-    private val dataLatest = ArrayList<ArticlesItem>()
+    private var dataCarouselPopular = ArrayList<ArticlesItem>()
     private lateinit var mAdapter: LatestAdapter
     private val viewModel by viewModels<HomeViewModel> {
         ViewModelFactory(requireContext())
@@ -37,6 +37,22 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupCarousel()
+        setupRecyclerView()
+        goToSearch()
+        getPopularNews()
+        getHeadlineNews()
+        getLatestNews()
+
+    }
+
+
+    private fun setupRecyclerView() {
+        _binding?.rvLatest?.layoutManager = LinearLayoutManager(requireContext())
+        _binding?.rvLatest?.setHasFixedSize(true)
+    }
+
+    private fun setupCarousel() {
         _binding?.viewPagerCorousel?.apply {
             clipChildren = false
             clipToPadding = false
@@ -44,37 +60,24 @@ class HomeFragment : Fragment() {
             (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         }
 
-        _binding?.rvLatest?.layoutManager = LinearLayoutManager(requireContext())
-        _binding?.rvLatest?.setHasFixedSize(true)
-
-        goToSearch()
-        getHeadlineNews()
-        getLatestNews()
-
-
-
-
-
+        _binding?.viewPagerCarouselSource?.apply {
+            clipChildren = false
+            clipToPadding = false
+            offscreenPageLimit = 3
+            (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        }
     }
 
     private fun getLatestNews() {
-        viewModel.getLatestNews("general").observe(viewLifecycleOwner){result->
-            when(result){
-                is Async.Loading -> loading(true)
-                is Async.Error -> {
-                    loading(false)
-                    Log.e(TAG, "onFailure: ${result.error}")
-                }
-                is Async.Success -> {
-                    loading(false)
-                    result.data.articles?.forEach { data->
-                       dataLatest.add(data!!)
-                    }
-                    mAdapter = LatestAdapter(dataLatest)
-                    _binding?.rvLatest?.adapter = mAdapter
-
-                }
+        mAdapter = LatestAdapter()
+        _binding?.rvLatest?.adapter = mAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter{
+                mAdapter.retry()
             }
+        )
+        viewModel.news.observe(viewLifecycleOwner){
+            mAdapter.submitData(lifecycle, it)
+            Log.d(TAG, "data : $it")
         }
     }
 
@@ -89,8 +92,35 @@ class HomeFragment : Fragment() {
                 is Async.Success -> {
                     loading(false)
                     result.data.articles?.forEach { data->
-                        dataCarousel.add(data!!)
-                        _binding?.viewPagerCorousel?.adapter = CarouselAdapter(dataCarousel)
+                        dataCarousel.add(data)
+                        _binding?.viewPagerCarouselSource?.adapter = CarouselAdapter(dataCarousel)
+                        val compositePageTransformer = CompositePageTransformer()
+                        compositePageTransformer.addTransformer(MarginPageTransformer((40 * Resources.getSystem().displayMetrics.density).toInt()))
+                        compositePageTransformer.addTransformer { page, position ->
+                            val r = 1- abs(position)
+                            page.scaleY = (0.80f + r * 0.20f)
+                        }
+                        _binding?.viewPagerCarouselSource?.setPageTransformer(compositePageTransformer)
+                    }
+
+                }
+            }
+        }
+    }
+
+    private fun getPopularNews() {
+        viewModel.getPopularNews().observe(viewLifecycleOwner){result->
+            when(result){
+                is Async.Loading -> loading(true)
+                is Async.Error -> {
+                    loading(false)
+                    Log.e(TAG, "onFailure: ${result.error}")
+                }
+                is Async.Success -> {
+                    loading(false)
+                    result.data.articles?.forEach { data->
+                        dataCarouselPopular.add(data)
+                        _binding?.viewPagerCorousel?.adapter = CarouselAdapter(dataCarouselPopular)
                         val compositePageTransformer = CompositePageTransformer()
                         compositePageTransformer.addTransformer(MarginPageTransformer((40 * Resources.getSystem().displayMetrics.density).toInt()))
                         compositePageTransformer.addTransformer { page, position ->

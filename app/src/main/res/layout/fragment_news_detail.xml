@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.detail.NewsDetailFragment">
+
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/title_news"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/thumbnail"
+        app:layout_constraintStart_toStartOf="@+id/thumbnail"
+        app:layout_constraintTop_toBottomOf="@+id/thumbnail"
+        tools:text="SP 500 futures fall slightly as investors await Friday's U.S. jobs data - CNBC" />
+
+
+    <TextView
+        android:id="@+id/source_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/title_news"
+        app:layout_constraintTop_toBottomOf="@+id/title_news"
+        tools:text="kompas" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/title_news"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/source_name"
+        tools:text="28 oktober 2022" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        app:layout_constraintEnd_toEndOf="@id/title_news"
+        app:layout_constraintStart_toStartOf="@+id/title_news"
+        app:layout_constraintTop_toBottomOf="@+id/source_name"
+        tools:text="Investors are looking ahead to the November jobs report for insight on how the Federal Reserve may proceed with its interest rate hikes." />
+
+    <TextView
+        android:id="@+id/editor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        tools:text="beranju"
+        app:layout_constraintEnd_toEndOf="@+id/description"
+        app:layout_constraintStart_toStartOf="@+id/description"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
+
+    <Button
+        android:id="@+id/btn_readmore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/read_more"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editor"
+        app:layout_constraintStart_toStartOf="@+id/editor" />
+
+
+    <ImageView
+        android:id="@+id/save_news"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="24dp"
+        android:padding="16dp"
+        android:background="@drawable/bg_circle_button"
+        android:src="@drawable/ic_baseline_bookmark_border_24"
+        app:layout_constraintBottom_toBottomOf="@+id/thumbnail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thumbnail" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/share_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/thumbnail"
+        app:layout_constraintEnd_toStartOf="@id/save_news"
+        app:layout_constraintTop_toBottomOf="@+id/thumbnail"
+        app:srcCompat="@drawable/ic_baseline_share_24" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

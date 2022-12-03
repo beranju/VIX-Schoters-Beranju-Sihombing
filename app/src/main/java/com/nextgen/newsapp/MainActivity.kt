@@ -1,17 +1,11 @@
 package com.nextgen.newsapp
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavDestination
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.nextgen.newsapp.databinding.ActivityMainBinding
 
@@ -25,19 +19,10 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val actionBar = supportActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayShowHomeEnabled(false);
-            actionBar.setHomeButtonEnabled(false);
-        }
-
-        val navView: BottomNavigationView = binding.navView
-
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_home, R.id.navigation_news, R.id.navigation_profile))
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        val navController = navHostFragment.navController
+        binding.navView.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destionation: NavDestination, _ ->
             when(destionation.id){
                 R.id.navigation_home -> {
@@ -47,6 +32,9 @@ class MainActivity : AppCompatActivity() {
                     visible()
                 }
                 R.id.navigation_profile -> {
+                    visible()
+                }
+                R.id.navigation_save -> {
                     visible()
                 }
                 else -> {

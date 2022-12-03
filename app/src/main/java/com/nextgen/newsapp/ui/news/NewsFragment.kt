@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -27,7 +26,7 @@ class NewsFragment : Fragment() {
         viewPager.adapter = sectionPagerAdapter
         val tabs: TabLayout = _binding?.tabs!!
         TabLayoutMediator(tabs, viewPager){tab, position->
-            tab.icon = resources.getDrawable(TAB_TITLES[position])
+            tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
     }
 
@@ -50,18 +49,18 @@ class NewsFragment : Fragment() {
         private val TAG = "NewsFragment"
 
         private val TAB_TITLES = intArrayOf(
-//            R.string.tab_text_1,
-//            R.string.tab_text_2,
-//            R.string.tab_text_3,
-//            R.string.tab_text_4,
-//            R.string.tab_text_5,
-//            R.string.tab_text_6
-            R.drawable.ic_bussiness_24,
-            R.drawable.ic_entertainment,
-            R.drawable.ic_health,
-            R.drawable.ic_science,
-            R.drawable.ic_sport,
-            R.drawable.ic_tech
+            R.string.tab_text_1,
+            R.string.tab_text_2,
+            R.string.tab_text_3,
+            R.string.tab_text_4,
+            R.string.tab_text_5,
+            R.string.tab_text_6
+//            R.drawable.ic_bussiness_24,
+//            R.drawable.ic_entertainment,
+//            R.drawable.ic_health,
+//            R.drawable.ic_science,
+//            R.drawable.ic_sport,
+//            R.drawable.ic_tech
         )
 
     }

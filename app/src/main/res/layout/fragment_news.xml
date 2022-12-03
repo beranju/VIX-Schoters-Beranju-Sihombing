@@ -14,6 +14,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:scrollbars="horizontal"
+        app:tabGravity="center"
+        app:tabMode="scrollable"
         app:tabSelectedTextColor="?attr/colorPrimary"
         app:tabBackground="@android:color/transparent"
         app:tabTextColor="?attr/colorOnSecondary" />

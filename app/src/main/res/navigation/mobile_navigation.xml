@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_navigation_home_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_detailNewsFragment"
+            app:destination="@id/detailNewsFragment" />
     </fragment>
 
     <fragment
@@ -33,6 +36,13 @@
         android:name="com.nextgen.newsapp.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_save"
+        android:name="com.nextgen.newsapp.ui.news.SaveNewsFragment"
+        android:label="@string/menu_save"
+        tools:layout="@layout/fragment_save_news"/>
+
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.nextgen.newsapp.ui.search.SearchFragment"
@@ -56,5 +66,22 @@
         <action
             android:id="@+id/action_detailFragment_to_navigation_news"
             app:destination="@id/navigation_news" />
+        <action
+            android:id="@+id/action_detailFragment_to_detailNewsFragment"
+            app:destination="@id/detailNewsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailNewsFragment"
+        android:name="com.nextgen.newsapp.ui.detail.NewsDetailFragment"
+        android:label="fragment_news_detail"
+        tools:layout="@layout/fragment_news_detail">
+
+        <action
+            android:id="@+id/action_detailNewsFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_detailNewsFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
 </navigation>

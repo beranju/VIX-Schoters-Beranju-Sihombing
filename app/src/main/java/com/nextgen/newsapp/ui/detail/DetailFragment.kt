@@ -2,19 +2,14 @@ package com.nextgen.newsapp.ui.detail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.JsResult
-import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.nextgen.newsapp.R
+import androidx.fragment.app.Fragment
 import com.nextgen.newsapp.databinding.FragmentDetailBinding
-import com.nextgen.newsapp.databinding.FragmentSearchBinding
 
 class DetailFragment : Fragment() {
     private var _binding : FragmentDetailBinding? = null
