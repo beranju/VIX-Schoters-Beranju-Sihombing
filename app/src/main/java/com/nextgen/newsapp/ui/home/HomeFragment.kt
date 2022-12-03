@@ -62,6 +62,7 @@ class HomeFragment : Fragment() {
         )
         viewModel.news.observe(viewLifecycleOwner){
             mAdapter.submitData(lifecycle, it)
+            Log.d(TAG, "data : $it")
         }
     }
 

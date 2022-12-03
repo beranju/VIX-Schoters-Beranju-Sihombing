@@ -4,7 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.paging.*
 import com.nextgen.newsapp.BuildConfig
+import com.nextgen.newsapp.data.local.database.News
+import com.nextgen.newsapp.data.local.database.NewsDao
+import com.nextgen.newsapp.data.local.database.NewsDatabase
 import com.nextgen.newsapp.data.mediator.NewsPagingSource
+import com.nextgen.newsapp.data.mediator.NewsRemoteMediator
 import com.nextgen.newsapp.data.remote.api.ApiService
 import com.nextgen.newsapp.data.remote.dto.ArticlesItem
 import com.nextgen.newsapp.data.remote.dto.HeadlineResponse
@@ -15,7 +19,9 @@ import com.nextgen.newsapp.helper.Async
 const val PAGE_SIZE = 3
 
 class NewsRepository(
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    private val database: NewsDatabase,
+    private val newsDao: NewsDao
 ) {
 
 
@@ -53,13 +59,16 @@ class NewsRepository(
         }
     }
 
-    fun getLatestNews(): LiveData<PagingData<ArticlesItem>>{
+    @OptIn(ExperimentalPagingApi::class)
+    fun getLatestNews(): LiveData<PagingData<News>>{
         return Pager(
             config = PagingConfig(
                 pageSize = PAGE_SIZE
             ),
+            remoteMediator = NewsRemoteMediator(database, apiService),
             pagingSourceFactory = {
-                NewsPagingSource(apiService)
+//                NewsPagingSource(apiService)
+                newsDao.getNews()
             }
         ).liveData
     }
