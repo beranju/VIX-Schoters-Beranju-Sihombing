@@ -20,8 +20,8 @@ android {
 
         buildConfigField "String", "BASE_URL", '"https://newsapi.org/v2/"'
         //?first api key
-//        buildConfigField "String", "API_KEY", '"065632db359c4f7f9ffd74105e77f66b"'
-        buildConfigField "String", "API_KEY", '"d7fb30a88c9047efbb9d6f9eb35d478e"'
+        buildConfigField "String", "API_KEY", '"065632db359c4f7f9ffd74105e77f66b"'
+//        buildConfigField "String", "API_KEY", '"d7fb30a88c9047efbb9d6f9eb35d478e"'
         buildConfigField "String", "BASE_URL_GITHUB", '"https://api.github.com/"'
         buildConfigField "String", "API_KEY_GITHUB", '"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"'
 
